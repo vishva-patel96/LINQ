@@ -48,18 +48,56 @@ List<Order> orders = new List<Order>()
 
             };
 
- //Query 1
-foreach(var customer in customers.OrderBy(c =>c.Last))
+//Query 1 
+foreach (var customer in customers.OrderBy(c => c.Last))
 {
     Console.WriteLine(customer.First + " " + customer.Last);
-    foreach(var order in orders.OrderByDescending(p => p.Price))
+    foreach (var order in orders.OrderByDescending(p => p.Price))
     {
 
-        Console.WriteLine(order.Price + " "+order.Description +" "+ order.Quantity);
+        Console.WriteLine(order.Price + " " + order.Description + " " + order.Quantity);
     }
-    orders.Count();
-    Console.WriteLine($"Total orders {orders.Count}");
+    
 }
 
+// Query 2
+    orders.Count();
+    Console.WriteLine($"Total orders {orders.Count}");
+
+//query 3
+var result = orders.Where(p => p.Price<=500).Count();
+Console.WriteLine($"total number of order {result}");
+
+//query 4
+var result1 = orders.Where(p => p.Price > 500).Count();
+Console.WriteLine($"total number of order {result1}");
+
+// query 5
+
+var result3 = orders.Sum(t => t.Price);
+Console.WriteLine($"total number of sum {result3}");
+
+// query 6
+Decimal totalorder = 0;
+var result4 = customers.Where(p => p.Age<=30);
+foreach (var customer in result4)
+{
+    var ord = orders.Where(t => t.CustomerID == customer.ID).FirstOrDefault();
+    totalorder = totalorder +ord.Price;
+   
+
+}
+Console.WriteLine(totalorder);
+
+//query 7
+Decimal totalorder1 = 0;
+var result5 = customers.Where(p => p.Age > 30);
+foreach (var customer in result5)
+{
+    var ord = orders.Where(t => t.CustomerID == customer.ID).FirstOrDefault();
+    totalorder1 = totalorder1 + ord.Price;
 
 
+}
+Console.WriteLine(totalorder1);
+//
